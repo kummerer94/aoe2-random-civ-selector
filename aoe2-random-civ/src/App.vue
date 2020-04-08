@@ -32,9 +32,24 @@
     <v-content>
       <v-container fluid>
         <v-row>
-          <v-col>
+          <v-col align="center">
+            <v-btn @click="generateRandomCiv()">Generate Random Civilization</v-btn>
+          </v-col>
+          <v-col align="center" v-if="selectedCiv.name !== ''">
+            <v-btn @click="chooseSelectedCiv()">Play this civilization</v-btn>
+          </v-col>
+        </v-row>
+
+        <v-row v-if="selectedCiv.name !== ''">
+          <v-col align="center">
+            <v-chip color="primary" large class="mx-5">{{ selectedCiv.name }}</v-chip>
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col v-for="(civs, index) in this.splitCivilizations" :key="index">
             <ul>
-              <v-row dense v-for="civ in civilizations" :key="civ.name" justify="space-around">
+              <v-row dense v-for="civ in civs" :key="civ.name" justify="space-around">
                 <v-col>
                   <v-switch
                     :style="civ.isExcluded ? 'text-decoration: line-through' : ''"
@@ -48,21 +63,33 @@
                         dense
                         class="mx-5"
                         style="text-decoration: none !important"
+                        title="Remove from rotation: mark as played"
                         @click="civ.wasSelectedBefore = !civ.wasSelectedBefore"
-                      >&times;</v-btn>
+                      >
+                        <v-icon>mdi-play</v-icon>
+                      </v-btn>
                       <v-btn
                         class="mx-5"
                         style="text-decoration: none !important"
                         v-else
                         dense
+                        title="Take back into rotation"
                         @click="civ.wasSelectedBefore = !civ.wasSelectedBefore"
-                      >+</v-btn>
-                      <v-chip>{{ civ.dlc }}</v-chip>
+                      >
+                        <v-icon>mdi-play-protected-content</v-icon>
+                      </v-btn>
+                      <v-chip :color="civ.name == selectedCiv.name ? 'primary' : ''">{{ civ.dlc }}</v-chip>
                     </template>
                   </v-switch>
                 </v-col>
               </v-row>
             </ul>
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col>
+            <v-btn color="error" @click="resetSelection()">Reset</v-btn>
           </v-col>
         </v-row>
       </v-container>
@@ -83,10 +110,56 @@ export default {
   },
   data: () => ({
     drawer: null,
-    civilizations: civilizations
+    civilizations: civilizations,
+    selectedCiv: {
+      name: "",
+      wasSelectedBefore: false,
+      isExcluded: false,
+      dlc: ""
+    }
   }),
+  methods: {
+    generateRandomCiv() {
+      let possibleCivilizations = this.civilizations.filter(
+        civ => !civ.wasSelectedBefore && !civ.isExcluded
+      );
+      if (possibleCivilizations.length == 0) {
+        // TODO: Better error message (use modal window)
+        alert("No more available civs.");
+      } else {
+        this.selectedCiv =
+          possibleCivilizations[
+            Math.floor(Math.random() * possibleCivilizations.length)
+          ];
+      }
+    },
+    chooseSelectedCiv() {
+      this.selectedCiv.wasSelectedBefore = true;
+    },
+    resetSelection() {
+      // TODO: Ask for confirmation
+      this.civilizations.map(civ => (civ.wasSelectedBefore = false));
+    },
+    load() {
+      // TODO: load from local storage
+    },
+    save() {
+      // TODO: save to local storage
+    }
+  },
   created() {
     this.$vuetify.theme.dark = true;
+  },
+  computed: {
+    splitCivilizations() {
+      let cols = 3;
+      let N = Math.ceil(this.civilizations.length / cols);
+      let splitCiv = [];
+      for (let index = 0; index < this.civilizations.length; index += N) {
+        splitCiv.push(this.civilizations.slice(index, index + N));
+      }
+      return splitCiv;
+    }
   }
 };
 </script>
