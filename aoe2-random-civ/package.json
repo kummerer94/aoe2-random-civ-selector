@@ -10,9 +10,11 @@
   "dependencies": {
     "@mdi/font": "^3.6.95",
     "core-js": "^3.6.4",
+    "lodash": "^4.17.15",
     "roboto-fontface": "*",
     "vue": "^2.6.11",
-    "vuetify": "^2.2.11"
+    "vuetify": "^2.2.11",
+    "vuetify-toast-snackbar": "^0.6.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.3.0",
