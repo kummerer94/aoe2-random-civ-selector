@@ -90,7 +90,12 @@
                       >{{ civ.name }}</span>
                     </template>
                     <template v-slot:append>
-                      <v-img :src="civ.icon" width="35" height="35"></v-img>
+                      <v-img
+                        :src="civ.icon"
+                        :style="civ.isIncluded ? '' : 'filter: grayscale(100%);'"
+                        width="35"
+                        height="35"
+                      ></v-img>
 
                       <v-btn
                         v-if="!civ.wasSelectedBefore"
