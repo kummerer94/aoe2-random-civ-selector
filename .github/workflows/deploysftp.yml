@@ -29,3 +29,4 @@ jobs:
           ftp-username: 383161-ftp
           ftp-password: ${{ secrets.AKAMMERER_FTP_PASSWORD }}
           local-dir: aoe2-random-civ/dist
+          git-ftp-args: --insecure
