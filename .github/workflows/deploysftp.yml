@@ -33,6 +33,9 @@ jobs:
         run: ls -la
         working-directory: aoe2-random-civ/
 
+      - name: Test
+        run: git status
+
       - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@3.0.0
         with:
