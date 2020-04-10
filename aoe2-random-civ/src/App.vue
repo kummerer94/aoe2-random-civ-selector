@@ -23,38 +23,34 @@
 
     <v-app-bar app clipped-left>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title>
-        AoE II - Definitive Edition - Random Civilization Selector
-      </v-toolbar-title>
+      <v-toolbar-title>AoE II - Definitive Edition - Random Civilization Selector</v-toolbar-title>
     </v-app-bar>
 
     <v-content>
       <v-container fluid>
         <v-row>
           <v-col align="center">
-            <v-btn @click="generateRandomCiv()"
-              >Generate Random Civilization</v-btn
-            >
+            <v-btn @click="generateRandomCiv()">Generate Random Civilization</v-btn>
           </v-col>
         </v-row>
 
         <v-row v-if="selectedCiv.name !== ''">
-          <v-col align="">
+          <v-col align>
             <v-card class="mx-auto" max-width="344" outlined>
               <v-list-item three-line>
                 <v-list-item-content>
                   <div class="overline mb-4">{{ selectedCiv.dlc }}</div>
-                  <v-list-item-title class="headline mb-1">{{
+                  <v-list-item-title class="headline mb-1">
+                    {{
                     selectedCiv.name
-                  }}</v-list-item-title>
+                    }}
+                  </v-list-item-title>
                   <v-list-item-subtitle></v-list-item-subtitle>
                 </v-list-item-content>
 
-                <v-list-item-avatar
-                  tile
-                  size="80"
-                  color="grey"
-                ></v-list-item-avatar>
+                <v-list-item-avatar tile size="80">
+                  <v-img :src="selectedCiv.icon" height="80" width="80"></v-img>
+                </v-list-item-avatar>
               </v-list-item>
 
               <v-card-actions>
@@ -62,44 +58,28 @@
                   text
                   :title="'Play the ' + selectedCiv.name"
                   @click="selectedCiv.wasSelectedBefore = true"
-                  ><v-icon>mdi-play</v-icon></v-btn
+                  :disabled="selectedCiv.wasSelectedBefore"
                 >
+                  <v-icon v-if="!selectedCiv.wasSelectedBefore">mdi-play</v-icon>
+                  <v-icon v-else>mdi-play-protected-content</v-icon>
+                </v-btn>
                 <v-switch v-model="selectedCiv.isIncluded" dense></v-switch>
               </v-card-actions>
             </v-card>
-
-            <!-- <v-chip color="primary" large class="mx-5">
-              {{ selectedCiv.name }}
-              <v-btn
-                @click="chooseSelectedCiv()"
-                :title="'Play the ' + selectedCiv.name"
-              >
-                <v-icon>mdi-play</v-icon>
-              </v-btn>
-            </v-chip> -->
           </v-col>
         </v-row>
 
         <v-row>
           <v-col>
-            <v-btn class="mr-5" color="primary" @click="excludeAll()"
-              >Exclude all</v-btn
-            >
-            <v-btn class="mr-5" color="primary" @click="includeAll()"
-              >Include all</v-btn
-            >
+            <v-btn class="mr-5" color="primary" @click="excludeAll()">Exclude all</v-btn>
+            <v-btn class="mr-5" color="primary" @click="includeAll()">Include all</v-btn>
           </v-col>
         </v-row>
 
         <v-row>
           <v-col v-for="(civs, index) in this.splitCivilizations" :key="index">
             <ul>
-              <v-row
-                dense
-                v-for="civ in civs"
-                :key="civ.name"
-                justify="space-around"
-              >
+              <v-row dense v-for="civ in civs" :key="civ.name" justify="space-around">
                 <v-col>
                   <v-switch v-model="civ.isIncluded" dense>
                     <template v-slot:label>
@@ -107,10 +87,11 @@
                         :style="
                           civ.isIncluded ? '' : 'text-decoration: line-through'
                         "
-                        >{{ civ.name }}</span
-                      >
+                      >{{ civ.name }}</span>
                     </template>
                     <template v-slot:append>
+                      <v-img :src="civ.icon" width="35" height="35"></v-img>
+
                       <v-btn
                         v-if="!civ.wasSelectedBefore"
                         :disabled="!civ.isIncluded"
@@ -119,9 +100,7 @@
                         @click="civ.wasSelectedBefore = !civ.wasSelectedBefore"
                         dense
                       >
-                        <v-icon style="text-decoration: none !important"
-                          >mdi-play</v-icon
-                        >
+                        <v-icon style="text-decoration: none !important">mdi-play</v-icon>
                       </v-btn>
                       <v-btn
                         v-else
@@ -132,14 +111,9 @@
                         @click="civ.wasSelectedBefore = !civ.wasSelectedBefore"
                         dense
                       >
-                        <v-icon style="text-decoration: none !important"
-                          >mdi-play-protected-content</v-icon
-                        >
+                        <v-icon style="text-decoration: none !important">mdi-play-protected-content</v-icon>
                       </v-btn>
-                      <v-chip
-                        :color="civ.name == selectedCiv.name ? 'primary' : ''"
-                        >{{ civ.dlc }}</v-chip
-                      >
+                      <v-chip :color="civ.name == selectedCiv.name ? 'primary' : ''">{{ civ.dlc }}</v-chip>
                     </template>
                   </v-switch>
                 </v-col>
@@ -181,7 +155,7 @@ import _ from "lodash";
 export default {
   components: { Confirm },
   props: {
-    source: String,
+    source: String
   },
   data: () => ({
     drawer: null,
@@ -190,8 +164,8 @@ export default {
       name: "",
       wasSelectedBefore: false,
       isIncluded: true,
-      dlc: "",
-    },
+      dlc: ""
+    }
   }),
   mounted() {
     this.load();
@@ -201,13 +175,13 @@ export default {
       deep: true,
       handler: _.debounce(function(newCiv) {
         this.save(newCiv);
-      }, 5000),
-    },
+      }, 5000)
+    }
   },
   methods: {
     generateRandomCiv() {
       let possibleCivilizations = this.civilizations.filter(
-        (civ) => !civ.wasSelectedBefore && civ.isIncluded
+        civ => !civ.wasSelectedBefore && civ.isIncluded
       );
       if (possibleCivilizations.length == 0) {
         this.$toast.error(
@@ -226,17 +200,17 @@ export default {
     },
     resetSelection() {
       // TODO: Ask for confirmation
-      this.civilizations.map((civ) => (civ.wasSelectedBefore = false));
+      this.civilizations.map(civ => (civ.wasSelectedBefore = false));
     },
     resetExcluded() {
       // TODO: Ask for confirmation
       this.includeAll();
     },
     includeAll() {
-      this.civilizations.map((civ) => (civ.isIncluded = true));
+      this.civilizations.map(civ => (civ.isIncluded = true));
     },
     excludeAll() {
-      this.civilizations.map((civ) => (civ.isIncluded = false));
+      this.civilizations.map(civ => (civ.isIncluded = false));
     },
     load() {
       if (localStorage.civilizations !== undefined) {
@@ -249,7 +223,7 @@ export default {
     save(civ) {
       window.localStorage.setItem("civilizations", JSON.stringify(civ));
       this.$toast.info("Saved your configuration.");
-    },
+    }
   },
   created() {
     this.$vuetify.theme.dark = true;
@@ -263,7 +237,7 @@ export default {
         splitCiv.push(this.civilizations.slice(index, index + N));
       }
       return splitCiv;
-    },
-  },
+    }
+  }
 };
 </script>
