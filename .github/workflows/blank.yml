@@ -1,0 +1,30 @@
+name: Deploy to SFTP CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
+    # Runs a single command using the runners shell
+    - name: Install & Build
+      run: |
+        npm install
+        npm run build
+      working-directory: aoe2-random-civ
+
+    - name: FTP Deploy
+      uses: SamKirkland/FTP-Deploy-Action@3.0.0
+      with:
+        ftp-server: sftp://ftp.akammerer.de:22/akammerer/aoe
+        ftp-username: 383161-ftp
+        ftp-password: ${{ secrets.AKAMMERER_FTP_PASSWORD }}
+        local-dir: ./aoe2-random-civ/dist
