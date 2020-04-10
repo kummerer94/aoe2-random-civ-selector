@@ -11,30 +11,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Use Node.js 12.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: "12.x"
-
-      # Runs a single command using the runners shell
       - name: Install & Build
         run: |
           npm install
           npm run build
         working-directory: aoe2-random-civ/
 
-      - name: Test
-        run: ls -la
-
-      - name: Test
-        run: ls -la
-        working-directory: aoe2-random-civ/
-
-      - name: Test
-        run: git status
+      - name: Reset any changes to the repo
+        run: git reset --hard
 
       - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@3.0.0
