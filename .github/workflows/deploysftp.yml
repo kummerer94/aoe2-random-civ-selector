@@ -28,5 +28,5 @@ jobs:
           ftp-server: sftp://ftp.akammerer.de:22/akammerer/aoe
           ftp-username: 383161-ftp
           ftp-password: ${{ secrets.AKAMMERER_FTP_PASSWORD }}
-          local-dir: aoe2-random-civ/dist
+          local-dir: aoe2-random-civ/dist/
           git-ftp-args: --insecure
