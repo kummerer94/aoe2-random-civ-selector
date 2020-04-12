@@ -1,26 +1,5 @@
 <template>
   <v-app id="inspire">
-    <!-- <v-navigation-drawer v-model="drawer" app clipped>
-      <v-list dense>
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-view-dashboard</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Random Selector</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-settings</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Settings</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>-->
-
     <v-app-bar app clipped-left>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>AoE II - Definitive Edition - Random Civilization Selector</v-toolbar-title>
@@ -49,21 +28,34 @@
                 </v-list-item-content>
 
                 <v-list-item-avatar tile size="80">
-                  <v-img :src="selectedCiv.icon" height="80" width="80"></v-img>
+                  <v-img
+                    :src="selectedCiv.icon"
+                    :style="selectedCiv.isIncluded ? '' : 'filter: grayscale(100%);'"
+                    height="80"
+                    width="80"
+                  ></v-img>
                 </v-list-item-avatar>
               </v-list-item>
 
               <v-card-actions>
                 <v-btn
-                  text
+                  icon
                   :title="'Play the ' + selectedCiv.name"
                   @click="selectedCiv.wasSelectedBefore = true"
-                  :disabled="selectedCiv.wasSelectedBefore"
+                  :disabled="selectedCiv.wasSelectedBefore || !selectedCiv.isIncluded"
                 >
                   <v-icon v-if="!selectedCiv.wasSelectedBefore">mdi-play</v-icon>
                   <v-icon v-else>mdi-play-protected-content</v-icon>
                 </v-btn>
                 <v-switch v-model="selectedCiv.isIncluded" dense></v-switch>
+                <v-btn
+                  icon
+                  :href="'https://ageofempires.fandom.com/wiki/' + selectedCiv.name"
+                  target="__new"
+                  title="Open in AoE Wiki"
+                >
+                  <v-icon>mdi-open-in-new</v-icon>
+                </v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -117,6 +109,7 @@
                       ></v-img>
 
                       <v-btn
+                        icon
                         v-if="!civ.wasSelectedBefore"
                         :disabled="!civ.isIncluded"
                         class="mx-5"
@@ -128,6 +121,7 @@
                       </v-btn>
                       <v-btn
                         v-else
+                        icon
                         :disabled="!civ.isIncluded"
                         class="mx-5"
                         style="text-decoration: none !important"
@@ -152,7 +146,7 @@
       <span class="mr-3">&copy; 2020</span>
       <span class="mr-3">|</span>
       <span class="mr-3">
-        <a href="http://blog.akammerer.de/impressum/">Impressum</a>
+        <a target="__new" href="http://blog.akammerer.de/impressum/">Impressum</a>
       </span>
     </v-footer>
   </v-app>
