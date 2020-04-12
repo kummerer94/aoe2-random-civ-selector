@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer v-model="drawer" app clipped>
+    <!-- <v-navigation-drawer v-model="drawer" app clipped>
       <v-list dense>
         <v-list-item link>
           <v-list-item-action>
@@ -19,7 +19,7 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-    </v-navigation-drawer>
+    </v-navigation-drawer>-->
 
     <v-app-bar app clipped-left>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
@@ -69,12 +69,31 @@
           </v-col>
         </v-row>
 
+        <v-divider class="my-10"></v-divider>
+
         <v-row>
-          <v-col>
+          <v-col align="left">
             <v-btn class="mr-5" color="primary" @click="excludeAll()">Exclude all</v-btn>
             <v-btn class="mr-5" color="primary" @click="includeAll()">Include all</v-btn>
           </v-col>
+          <v-spacer></v-spacer>
+          <v-col align="right">
+            <Confirm
+              label="Reset alrady selected"
+              message="Do you want to reset the already selected civs?"
+              color="error"
+              @confirm="resetSelection()"
+            ></Confirm>
+            <Confirm
+              label="Reset excluded"
+              message="Do you want to reset the excluded civs?"
+              color="error"
+              @confirm="resetExcluded()"
+            ></Confirm>
+          </v-col>
         </v-row>
+
+        <v-divider class="my-10"></v-divider>
 
         <v-row>
           <v-col v-for="(civs, index) in this.splitCivilizations" :key="index">
@@ -126,28 +145,15 @@
             </ul>
           </v-col>
         </v-row>
-
-        <v-row>
-          <v-col>
-            <Confirm
-              label="Reset alrady selected"
-              message="Do you want to reset the already selected civs?"
-              color="error"
-              @confirm="resetSelection()"
-            ></Confirm>
-            <Confirm
-              label="Reset excluded"
-              message="Do you want to reset the excluded civs?"
-              color="error"
-              @confirm="resetExcluded()"
-            ></Confirm>
-          </v-col>
-        </v-row>
       </v-container>
     </v-content>
 
     <v-footer app>
-      <span>&copy; 2020</span>
+      <span class="mr-3">&copy; 2020</span>
+      <span class="mr-3">|</span>
+      <span class="mr-3">
+        <a href="http://blog.akammerer.de/impressum/">Impressum</a>
+      </span>
     </v-footer>
   </v-app>
 </template>
