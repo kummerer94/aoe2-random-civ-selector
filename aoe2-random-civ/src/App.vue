@@ -8,6 +8,11 @@
     <v-content>
       <v-container fluid>
         <v-row>
+          <v-col>
+            <p>Welcome to the AoE II Random Civilization Generator. This tool is intended to help you pick a civilization at random before starting a new match, while also allowing you to exclude certain civilizations and automatically disregard already selected ones.</p>
+          </v-col>
+        </v-row>
+        <v-row>
           <v-col align="center">
             <v-btn @click="generateRandomCiv()">Generate Random Civilization</v-btn>
           </v-col>
@@ -137,6 +142,28 @@
                 </v-col>
               </v-row>
             </ul>
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col>
+            <h2>FAQ</h2>
+            <p>
+              <b>Interesting tool... but why?</b>
+              <br />I recently started playing AoE II DE with my buddies. We usually play against each other or AI using random civilizations. However, sometimes we need to start again or cancel a match but still want to keep these civilizations in the rotation while excluding other civilizations. This is not possible with the built in random generator of AoE. With this tool, it is.
+            </p>
+            <p>
+              <b>How do I get started?</b>
+              <br />If you want to get started, click on the "Generate Random Civilization" button and, if you ultimately end up playing the civilization, click on the
+              <v-btn icon>
+                <v-icon>mdi-play</v-icon>
+              </v-btn>button.
+            </p>
+            <p>
+              <b>Where is my data stored?</b>
+              <br />All your data is stored locally on your browser. Currently, no data leaves your browser.
+              <em>Please note:</em> If you decide to delete your cookies, you might lose your previously played or excluded civilizations.
+            </p>
           </v-col>
         </v-row>
       </v-container>
