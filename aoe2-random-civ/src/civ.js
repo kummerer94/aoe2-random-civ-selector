@@ -1,4 +1,4 @@
-export default [
+let civs = [
   {
     name: "Britons",
     wasSelectedBefore: false,
@@ -280,3 +280,7 @@ export default [
       "https://vignette.wikia.nocookie.net/ageofempires/images/f/f2/CivIcon-Tatars.png"
   }
 ];
+
+civs.map(c => (c.wikiLink = "https://ageofempires.fandom.com/wiki/" + c.name));
+
+export default civs;

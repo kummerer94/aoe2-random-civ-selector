@@ -33,12 +33,14 @@
                 </v-list-item-content>
 
                 <v-list-item-avatar tile size="80">
-                  <v-img
-                    :src="selectedCiv.icon"
-                    :style="selectedCiv.isIncluded ? '' : 'filter: grayscale(100%);'"
-                    height="80"
-                    width="80"
-                  ></v-img>
+                  <a :href="selectedCiv.wikiLink" target="__new">
+                    <v-img
+                      :src="selectedCiv.icon"
+                      :style="selectedCiv.isIncluded ? '' : 'filter: grayscale(100%);'"
+                      height="80"
+                      width="80"
+                    ></v-img>
+                  </a>
                 </v-list-item-avatar>
               </v-list-item>
 
@@ -53,12 +55,7 @@
                   <v-icon v-else>mdi-play-protected-content</v-icon>
                 </v-btn>
                 <v-switch v-model="selectedCiv.isIncluded" dense></v-switch>
-                <v-btn
-                  icon
-                  :href="'https://ageofempires.fandom.com/wiki/' + selectedCiv.name"
-                  target="__new"
-                  title="Open in AoE Wiki"
-                >
+                <v-btn icon :href="selectedCiv.wikiLink" target="__new" title="Open in AoE Wiki">
                   <v-icon>mdi-open-in-new</v-icon>
                 </v-btn>
               </v-card-actions>
@@ -189,16 +186,18 @@ export default {
   props: {
     source: String
   },
-  data: () => ({
-    drawer: null,
-    civilizations: civilizations,
-    selectedCiv: {
-      name: "",
-      wasSelectedBefore: false,
-      isIncluded: true,
-      dlc: ""
-    }
-  }),
+  data: () => {
+    return {
+      drawer: null,
+      civilizations: civilizations,
+      selectedCiv: {
+        name: "",
+        wasSelectedBefore: false,
+        isIncluded: true,
+        dlc: ""
+      }
+    };
+  },
   mounted() {
     this.load();
   },
@@ -207,7 +206,7 @@ export default {
       deep: true,
       handler: _.debounce(function(newCiv) {
         this.save(newCiv);
-      }, 5000)
+      }, 1000)
     }
   },
   methods: {
@@ -246,9 +245,18 @@ export default {
     },
     load() {
       if (localStorage.civilizations !== undefined) {
-        this.civilizations = JSON.parse(
+        let storedCivilizations = JSON.parse(
           window.localStorage.getItem("civilizations")
         );
+        // Instead of simply loading the stored configuration, update
+        // the attributes of the default configuration with the values
+        // for these attributes in the stored configuration.
+        storedCivilizations.map(storedCiv => {
+          Object.assign(
+            this.civilizations.find(civ => civ.name === storedCiv.name),
+            storedCiv
+          );
+        });
         this.$toast.info("Loaded your configuration.");
       }
     },
