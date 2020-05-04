@@ -11,19 +11,26 @@ class StorageEngine {
 }
 
 class LocalStorageEngine extends StorageEngine {
+  constructor() {
+    super();
+    this.localStorageKey = "civilizations";
+  }
+
   load() {
     return new Promise((resolve, reject) => {
-      if (localStorage.civilizations !== undefined) {
-        resolve(JSON.parse(window.localStorage.getItem("civilizations")));
+      if (localStorage[this.localStorageKey] !== undefined) {
+        console.log(this.localStorageKey);
+        resolve(JSON.parse(window.localStorage.getItem(this.localStorageKey)));
       } else {
-        reject("No config found in local storage.");
+        reject("No pre-existing config found. Loading the default config.");
       }
     });
   }
+
   save(civilizations) {
     return new Promise((resolve) => {
       window.localStorage.setItem(
-        "civilizations",
+        this.localStorageKey,
         JSON.stringify(civilizations)
       );
       resolve();

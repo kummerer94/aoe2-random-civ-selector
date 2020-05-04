@@ -293,18 +293,21 @@ export default {
       this.civilizations.map((civ) => (civ.isIncluded = false));
     },
     load() {
-      storageEngine.load().then((storedCivilizations) => {
-        // Instead of simply loading the stored configuration, update
-        // the attributes of the default configuration with the values
-        // for these attributes in the stored configuration.
-        storedCivilizations.map((storedCiv) => {
-          Object.assign(
-            this.civilizations.find((civ) => civ.name === storedCiv.name),
-            storedCiv
-          );
-        });
-        this.$toast.info("Loaded your configuration.");
-      });
+      storageEngine
+        .load()
+        .then((storedCivilizations) => {
+          // Instead of simply loading the stored configuration, update
+          // the attributes of the default configuration with the values
+          // for these attributes in the stored configuration.
+          storedCivilizations.map((storedCiv) => {
+            Object.assign(
+              this.civilizations.find((civ) => civ.name === storedCiv.name),
+              storedCiv
+            );
+          });
+          this.$toast.info("Loaded your configuration.");
+        })
+        .catch((error) => this.$toast.warning(error));
     },
     save(civ) {
       storageEngine
