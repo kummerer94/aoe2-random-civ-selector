@@ -2,10 +2,9 @@
   <v-app id="inspire">
     <v-app-bar app clipped-left>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title
-        >AoE II - Definitive Edition - Random Civilization
-        Selector</v-toolbar-title
-      >
+      <v-toolbar-title>
+        AoE II - Definitive Edition - Random Civilization Selector
+      </v-toolbar-title>
     </v-app-bar>
 
     <v-content>
@@ -34,9 +33,9 @@
               <v-list-item three-line>
                 <v-list-item-content>
                   <div class="overline mb-4">{{ selectedCiv.dlc }}</div>
-                  <v-list-item-title class="headline mb-1">
-                    {{ selectedCiv.name }}
-                  </v-list-item-title>
+                  <v-list-item-title class="headline mb-1">{{
+                    selectedCiv.name
+                  }}</v-list-item-title>
                   <v-list-item-subtitle></v-list-item-subtitle>
                 </v-list-item-content>
 
@@ -197,9 +196,7 @@
               <br />If you want to get started, click on the "Generate Random
               Civilization" button and, if you ultimately end up playing the
               civilization, click on the
-              <v-btn icon>
-                <v-icon>mdi-play</v-icon> </v-btn
-              >button.
+              <v-btn icon> <v-icon>mdi-play</v-icon> </v-btn>button.
             </p>
             <p>
               <b>Where is my data stored?</b>
@@ -226,9 +223,12 @@
 </template>
 
 <script>
-import civilizations from "./civ";
+import { civilizations } from "./civ";
 import Confirm from "./components/Confirm.vue";
 import _ from "lodash";
+import { LocalStorageEngine } from "./storageEngine";
+
+let storageEngine = new LocalStorageEngine();
 
 export default {
   components: { Confirm },
@@ -293,10 +293,7 @@ export default {
       this.civilizations.map((civ) => (civ.isIncluded = false));
     },
     load() {
-      if (localStorage.civilizations !== undefined) {
-        let storedCivilizations = JSON.parse(
-          window.localStorage.getItem("civilizations")
-        );
+      storageEngine.load().then((storedCivilizations) => {
         // Instead of simply loading the stored configuration, update
         // the attributes of the default configuration with the values
         // for these attributes in the stored configuration.
@@ -307,11 +304,12 @@ export default {
           );
         });
         this.$toast.info("Loaded your configuration.");
-      }
+      });
     },
     save(civ) {
-      window.localStorage.setItem("civilizations", JSON.stringify(civ));
-      this.$toast.info("Saved your configuration.");
+      storageEngine
+        .save(civ)
+        .then(() => this.$toast.info("Saved your configuration."));
     },
   },
   created() {

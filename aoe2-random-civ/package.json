@@ -13,7 +13,7 @@
     "lodash": "^4.17.15",
     "roboto-fontface": "*",
     "vue": "^2.6.11",
-    "vuetify": "^2.2.11",
+    "vuetify": "^2.2.26",
     "vuetify-toast-snackbar": "^0.6.1"
   },
   "devDependencies": {
