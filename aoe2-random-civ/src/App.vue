@@ -2,9 +2,7 @@
   <v-app id="inspire">
     <v-app-bar app clipped-left>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title>
-        AoE II - Definitive Edition - Random Civilization Selector
-      </v-toolbar-title>
+      <v-toolbar-title>AoE II - Definitive Edition - Random Civilization Selector</v-toolbar-title>
     </v-app-bar>
 
     <v-content>
@@ -21,9 +19,14 @@
         </v-row>
         <v-row>
           <v-col align="center">
-            <v-btn @click="generateRandomCiv()"
-              >Generate Random Civilization</v-btn
-            >
+            <v-form @submit.prevent="load()">
+              <v-text-field label="Username" v-model="user"></v-text-field>
+            </v-form>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col align="center">
+            <v-btn @click="generateRandomCiv()">Generate Random Civilization</v-btn>
           </v-col>
         </v-row>
 
@@ -33,9 +36,11 @@
               <v-list-item three-line>
                 <v-list-item-content>
                   <div class="overline mb-4">{{ selectedCiv.dlc }}</div>
-                  <v-list-item-title class="headline mb-1">{{
+                  <v-list-item-title class="headline mb-1">
+                    {{
                     selectedCiv.name
-                  }}</v-list-item-title>
+                    }}
+                  </v-list-item-title>
                   <v-list-item-subtitle></v-list-item-subtitle>
                 </v-list-item-content>
 
@@ -62,18 +67,11 @@
                     selectedCiv.wasSelectedBefore || !selectedCiv.isIncluded
                   "
                 >
-                  <v-icon v-if="!selectedCiv.wasSelectedBefore"
-                    >mdi-play</v-icon
-                  >
+                  <v-icon v-if="!selectedCiv.wasSelectedBefore">mdi-play</v-icon>
                   <v-icon v-else>mdi-play-protected-content</v-icon>
                 </v-btn>
                 <v-switch v-model="selectedCiv.isIncluded" dense></v-switch>
-                <v-btn
-                  icon
-                  :href="selectedCiv.wikiLink"
-                  target="__new"
-                  title="Open in AoE Wiki"
-                >
+                <v-btn icon :href="selectedCiv.wikiLink" target="__new" title="Open in AoE Wiki">
                   <v-icon>mdi-open-in-new</v-icon>
                 </v-btn>
               </v-card-actions>
@@ -85,12 +83,8 @@
 
         <v-row>
           <v-col align="left">
-            <v-btn class="mr-5" color="primary" @click="excludeAll()"
-              >Exclude all</v-btn
-            >
-            <v-btn class="mr-5" color="primary" @click="includeAll()"
-              >Include all</v-btn
-            >
+            <v-btn class="mr-5" color="primary" @click="excludeAll()">Exclude all</v-btn>
+            <v-btn class="mr-5" color="primary" @click="includeAll()">Include all</v-btn>
           </v-col>
           <v-spacer></v-spacer>
           <v-col align="right">
@@ -114,12 +108,7 @@
         <v-row>
           <v-col v-for="(civs, index) in this.splitCivilizations" :key="index">
             <ul>
-              <v-row
-                dense
-                v-for="civ in civs"
-                :key="civ.name"
-                justify="space-around"
-              >
+              <v-row dense v-for="civ in civs" :key="civ.name" justify="space-around">
                 <v-col>
                   <v-switch v-model="civ.isIncluded" dense>
                     <template v-slot:label>
@@ -127,8 +116,7 @@
                         :style="
                           civ.isIncluded ? '' : 'text-decoration: line-through'
                         "
-                        >{{ civ.name }}</span
-                      >
+                      >{{ civ.name }}</span>
                     </template>
                     <template v-slot:append>
                       <v-img
@@ -149,9 +137,7 @@
                         @click="civ.wasSelectedBefore = !civ.wasSelectedBefore"
                         dense
                       >
-                        <v-icon style="text-decoration: none !important"
-                          >mdi-play</v-icon
-                        >
+                        <v-icon style="text-decoration: none !important">mdi-play</v-icon>
                       </v-btn>
                       <v-btn
                         v-else
@@ -163,14 +149,9 @@
                         @click="civ.wasSelectedBefore = !civ.wasSelectedBefore"
                         dense
                       >
-                        <v-icon style="text-decoration: none !important"
-                          >mdi-play-protected-content</v-icon
-                        >
+                        <v-icon style="text-decoration: none !important">mdi-play-protected-content</v-icon>
                       </v-btn>
-                      <v-chip
-                        :color="civ.name == selectedCiv.name ? 'primary' : ''"
-                        >{{ civ.dlc }}</v-chip
-                      >
+                      <v-chip :color="civ.name == selectedCiv.name ? 'primary' : ''">{{ civ.dlc }}</v-chip>
                     </template>
                   </v-switch>
                 </v-col>
@@ -196,12 +177,15 @@
               <br />If you want to get started, click on the "Generate Random
               Civilization" button and, if you ultimately end up playing the
               civilization, click on the
-              <v-btn icon> <v-icon>mdi-play</v-icon> </v-btn>button.
+              <v-btn icon>
+                <v-icon>mdi-play</v-icon>
+              </v-btn>button.
             </p>
             <p>
               <b>Where is my data stored?</b>
               <br />All your data is stored locally on your browser. Currently,
-              no data leaves your browser. <em>Please note:</em> If you decide
+              no data leaves your browser.
+              <em>Please note:</em> If you decide
               to delete your cookies, you might lose your previously played or
               excluded civilizations.
             </p>
@@ -214,9 +198,7 @@
       <span class="mr-3">&copy; 2020</span>
       <span class="mr-3">|</span>
       <span class="mr-3">
-        <a target="__new" href="http://blog.akammerer.de/impressum/"
-          >Impressum</a
-        >
+        <a target="__new" href="http://blog.akammerer.de/impressum/">Impressum</a>
       </span>
     </v-footer>
   </v-app>
@@ -226,25 +208,27 @@
 import { civilizations } from "./civ";
 import Confirm from "./components/Confirm.vue";
 import _ from "lodash";
-import { LocalStorageEngine } from "./storageEngine";
+import { LocalStorageEngine, APIStorageEngine } from "./storageEngine";
 
 let storageEngine = new LocalStorageEngine();
+storageEngine = new APIStorageEngine();
 
 export default {
   components: { Confirm },
   props: {
-    source: String,
+    source: String
   },
   data: () => {
     return {
+      user: localStorage.getItem("user") || "",
       drawer: null,
       civilizations: civilizations,
       selectedCiv: {
         name: "",
         wasSelectedBefore: false,
         isIncluded: true,
-        dlc: "",
-      },
+        dlc: ""
+      }
     };
   },
   mounted() {
@@ -255,13 +239,14 @@ export default {
       deep: true,
       handler: _.debounce(function(newCiv) {
         this.save(newCiv);
-      }, 1000),
+      }, 1000)
     },
+    user: u => localStorage.setItem("user", u)
   },
   methods: {
     generateRandomCiv() {
       let possibleCivilizations = this.civilizations.filter(
-        (civ) => !civ.wasSelectedBefore && civ.isIncluded
+        civ => !civ.wasSelectedBefore && civ.isIncluded
       );
       if (possibleCivilizations.length == 0) {
         this.$toast.error(
@@ -280,40 +265,49 @@ export default {
     },
     resetSelection() {
       // TODO: Ask for confirmation
-      this.civilizations.map((civ) => (civ.wasSelectedBefore = false));
+      this.civilizations.map(civ => (civ.wasSelectedBefore = false));
     },
     resetExcluded() {
       // TODO: Ask for confirmation
       this.includeAll();
     },
     includeAll() {
-      this.civilizations.map((civ) => (civ.isIncluded = true));
+      this.civilizations.map(civ => (civ.isIncluded = true));
     },
     excludeAll() {
-      this.civilizations.map((civ) => (civ.isIncluded = false));
+      this.civilizations.map(civ => (civ.isIncluded = false));
     },
     load() {
+      if (this.user === "") {
+        this.$toast.warning(
+          "We were unable to load a configuration. Please specify your username first."
+        );
+        return;
+      }
+
       storageEngine
-        .load()
-        .then((storedCivilizations) => {
+        .load(this.user)
+        .then(storedCivilizations => {
           // Instead of simply loading the stored configuration, update
           // the attributes of the default configuration with the values
           // for these attributes in the stored configuration.
-          storedCivilizations.map((storedCiv) => {
+          storedCivilizations.map(storedCiv => {
             Object.assign(
-              this.civilizations.find((civ) => civ.name === storedCiv.name),
+              this.civilizations.find(civ => civ.name === storedCiv.name),
               storedCiv
             );
           });
           this.$toast.info("Loaded your configuration.");
         })
-        .catch((error) => this.$toast.warning(error));
+        .catch(error => this.$toast.warning(error));
     },
     save(civ) {
-      storageEngine
-        .save(civ)
-        .then(() => this.$toast.info("Saved your configuration."));
-    },
+      if (this.user !== "") {
+        storageEngine
+          .save(civ, this.user)
+          .then(() => this.$toast.info("Saved your configuration."));
+      }
+    }
   },
   created() {
     this.$vuetify.theme.dark = true;
@@ -327,7 +321,7 @@ export default {
         splitCiv.push(this.civilizations.slice(index, index + N));
       }
       return splitCiv;
-    },
-  },
+    }
+  }
 };
 </script>
