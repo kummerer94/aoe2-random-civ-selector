@@ -1,0 +1,4 @@
+# Include Vue.js environment configuration files for the build process
+# to correctly replace the process.env.xxx variables.
+!.env
+!.env.production
