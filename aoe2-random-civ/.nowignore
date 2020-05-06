@@ -1,12 +1,11 @@
 # Include Vue.js environment configuration files for the build process
 # to correctly replace the process.env.xxx variables.
-/*
-!*.html
-!*.js
-!*.vue
-!*.png
-!*.svg
-!aoe2-random-civ/.env
-!aoe2-random-civ/.env.production
+*
+!public
+!public/**
+!src
+!src/**
+!.env
+!.env.production
 !package-lock.json
 !package.json
