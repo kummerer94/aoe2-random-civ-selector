@@ -43,7 +43,8 @@ class APIStorageEngine extends StorageEngine {
     super();
 
     this.client = axios.create({
-      baseURL: process.env.VUE_APP_STORAGE_API_URL,
+      baseURL:
+        process.env.VUE_APP_STORAGE_API_URL || "https://api.aoe-rcs.com/api",
     });
     this.client.defaults.headers.post["Content-Type"] = "application/json";
   }

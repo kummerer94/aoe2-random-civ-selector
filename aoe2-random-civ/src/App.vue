@@ -3,7 +3,31 @@
     <v-app-bar app clipped-left>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>AoE II - Definitive Edition - Random Civilization Selector</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn @click="userDialog = true">{{ this.user !== "" ? this.user : "Store in browser" }}</v-btn>
     </v-app-bar>
+
+    <v-dialog v-model="userDialog">
+      <v-card>
+        <v-card-title class="headline">What is your username?</v-card-title>
+
+        <v-card-text>
+          <p>If you specify a username here, we will save your configuration. You can come back to this site and use your username to retrieve this configuration again.</p>
+          <p>If you choose to not specify a username, we will save your configuration in your browser. However, this may get lost when the cache is deleted or when you are switching your browser.</p>
+          <v-form @submit.prevent="userDialog = false; load()">
+            <v-text-field label="Username" v-model="user"></v-text-field>
+          </v-form>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn color="red darken-1" text @click="userDialog = false; user = ''">Store in browser</v-btn>
+
+          <v-btn color="blue darken-1" text @click="userDialog = false; load()">Save</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 
     <v-content>
       <v-container fluid>
@@ -15,13 +39,6 @@
               a new match, while also allowing you to exclude certain
               civilizations and automatically disregard already selected ones.
             </p>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col align="center">
-            <v-form @submit.prevent="load()">
-              <v-text-field label="Username" v-model="user"></v-text-field>
-            </v-form>
           </v-col>
         </v-row>
         <v-row>
@@ -210,8 +227,8 @@ import Confirm from "./components/Confirm.vue";
 import _ from "lodash";
 import { LocalStorageEngine, APIStorageEngine } from "./storageEngine";
 
-let storageEngine = new LocalStorageEngine();
-storageEngine = new APIStorageEngine();
+let localStorageEngine = new LocalStorageEngine();
+let apiStorageEngine = new APIStorageEngine();
 
 export default {
   components: { Confirm },
@@ -221,6 +238,7 @@ export default {
   data: () => {
     return {
       user: localStorage.getItem("user") || "",
+      userDialog: false,
       drawer: null,
       civilizations: civilizations,
       selectedCiv: {
@@ -277,37 +295,45 @@ export default {
     excludeAll() {
       this.civilizations.map(civ => (civ.isIncluded = false));
     },
+    setupCivilizations(civilizations) {
+      // Instead of simply loading the stored configuration, update
+      // the attributes of the default configuration with the values
+      // for these attributes in the stored configuration.
+      civilizations.map(storedCiv => {
+        Object.assign(
+          this.civilizations.find(civ => civ.name === storedCiv.name),
+          storedCiv
+        );
+      });
+    },
     load() {
       if (this.user === "") {
-        this.$toast.warning(
-          "We were unable to load a configuration. Please specify your username first."
-        );
-        return;
-      }
-
-      storageEngine
-        .load(this.user)
-        .then(storedCivilizations => {
-          // Instead of simply loading the stored configuration, update
-          // the attributes of the default configuration with the values
-          // for these attributes in the stored configuration.
-          storedCivilizations.map(storedCiv => {
-            Object.assign(
-              this.civilizations.find(civ => civ.name === storedCiv.name),
-              storedCiv
-            );
-          });
+        localStorageEngine.load().then(storedCivilizations => {
+          this.setupCivilizations(storedCivilizations);
           this.$toast.info("Loaded your configuration.");
-        })
-        .catch(error => this.$toast.warning(error));
+        });
+      } else {
+        apiStorageEngine
+          .load(this.user)
+          .then(storedCivilizations => {
+            this.setupCivilizations(storedCivilizations);
+            this.$toast.info("Loaded your configuration.");
+          })
+          .catch(error => this.$toast.warning(error));
+      }
     },
     save(civ) {
       if (this.user !== "") {
-        storageEngine
+        apiStorageEngine
           .save(civ, this.user)
           .then(() => this.$toast.info("Saved your configuration."));
+      } else {
+        localStorageEngine
+          .save(civ)
+          .then(() => this.$toast.info("Saved your configuration."));
       }
-    }
+    },
+    selectUser() {}
   },
   created() {
     this.$vuetify.theme.dark = true;
