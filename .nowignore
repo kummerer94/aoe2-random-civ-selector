@@ -6,7 +6,7 @@
 !*.vue
 !*.png
 !*.svg
-!.env
-!.env.production
+!aoe2-random-civ/.env
+!aoe2-random-civ/.env.production
 !package-lock.json
 !package.json
