@@ -1,4 +1,12 @@
 # Include Vue.js environment configuration files for the build process
 # to correctly replace the process.env.xxx variables.
+*
+!*/
+!dist
+!public
+!src
+!babel.config.js
+!package-lock.json
+!package.json
 !.env
 !.env.production
