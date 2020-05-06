@@ -250,9 +250,7 @@
               <br />If you want to get started, click on the "Generate Random
               Civilization" button and, if you ultimately end up playing the
               civilization, click on the
-              <v-btn icon>
-                <v-icon>mdi-play</v-icon> </v-btn
-              >button.
+              <v-btn icon> <v-icon>mdi-play</v-icon> </v-btn>button.
             </p>
             <p>
               <b>Where is my data stored?</b>
@@ -380,6 +378,9 @@ export default {
       }
     },
     save(civ) {
+      if (civ === undefined || civ === null) {
+        return;
+      }
       if (this.user !== "") {
         apiStorageEngine
           .save(civ, this.user)
