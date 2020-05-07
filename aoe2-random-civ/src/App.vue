@@ -104,7 +104,7 @@
                 <v-btn
                   icon
                   :title="'Play the ' + selectedCiv.name"
-                  @click="selectedCiv.wasSelectedBefore = true"
+                  @click="selectCiv(selectedCiv)"
                   :disabled="
                     selectedCiv.wasSelectedBefore || !selectedCiv.isIncluded
                   "
@@ -158,7 +158,7 @@
                         :style="
                           civ.isIncluded ? '' : 'text-decoration: line-through'
                         "
-                      >{{ civ.name }}</span>
+                      >{{ civ.name }}{{ civ.wasSelectedBefore && civ.lastPicked !== null ? ' (last picked '+ makeDateHumanReadable(civ.lastPicked) +')' : ''}}</span>
                     </template>
                     <template v-slot:append>
                       <v-img
@@ -176,7 +176,7 @@
                         :disabled="!civ.isIncluded"
                         class="mx-5"
                         title="Remove from rotation: mark as played"
-                        @click="civ.wasSelectedBefore = !civ.wasSelectedBefore"
+                        @click="selectCiv(civ)"
                         dense
                       >
                         <v-icon style="text-decoration: none !important">mdi-play</v-icon>
@@ -188,7 +188,7 @@
                         class="mx-5"
                         style="text-decoration: none !important"
                         title="Take back into rotation"
-                        @click="civ.wasSelectedBefore = !civ.wasSelectedBefore"
+                        @click="resetCiv(civ)"
                         dense
                       >
                         <v-icon style="text-decoration: none !important">mdi-play-protected-content</v-icon>
@@ -226,8 +226,9 @@
             <p>
               <b>Where is my data stored?</b>
               <br />All your data is stored locally on your browser. Currently,
-              no data leaves your browser.
-              <em>Please note:</em> If you decideto
+              no data leaves your browser
+              <em>if you do not want it to</em>.
+              <em>Please note:</em> If you decide to
               delete your cookies, you might lose your previously played or
               excluded civilizations.
             </p>
@@ -274,6 +275,7 @@
 import { civilizations } from "./civ";
 import Confirm from "./components/Confirm.vue";
 import _ from "lodash";
+import moment from "moment";
 import { LocalStorageEngine, APIStorageEngine } from "./storageEngine";
 
 let localStorageEngine = new LocalStorageEngine();
@@ -327,12 +329,17 @@ export default {
           ];
       }
     },
-    chooseSelectedCiv() {
-      this.selectedCiv.wasSelectedBefore = true;
+    selectCiv(civ) {
+      civ.wasSelectedBefore = true;
+      civ.lastPicked = new Date().toISOString();
+    },
+    resetCiv(civ) {
+      civ.wasSelectedBefore = false;
+      civ.lastPicked = null;
     },
     resetSelection() {
       // TODO: Ask for confirmation
-      this.civilizations.map(civ => (civ.wasSelectedBefore = false));
+      this.civilizations.map(civ => this.resetCiv(civ));
     },
     resetExcluded() {
       // TODO: Ask for confirmation
@@ -385,7 +392,12 @@ export default {
           .then(() => this.$toast.info("Saved your configuration."));
       }
     },
-    selectUser() {}
+    makeDateHumanReadable(date) {
+      if (date !== null) {
+        return moment(date).fromNow();
+      }
+      return "";
+    }
   },
   created() {
     this.$vuetify.theme.dark = true;
