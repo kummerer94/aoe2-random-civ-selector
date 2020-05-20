@@ -256,6 +256,11 @@
               Wir speichern, sofern Sie dies explizit durch die Angabe eines Nutzernamens ("Username") bestätigen, auf unseren Servern diesen Nutzernamen, sowie die aktuell konfigurierten und angezeiten Daten zu der Selektion von Völkern bei Age of Empires. Weiterhin hinterlegen wir den Zeitpunkt, zu dem Sie diese Daten an uns geschickt haben.
               Sie können uns jederzeit veranlassen diese Daten zu löschen, indem Sie sich an die im Impressum angegebenen Kontaktdaten wenden.
             </p>
+            
+            <h2>Copyright</h2>
+            <p>
+              Age of Empires II DE © Microsoft Corporation. aoe-rcs.com was created under Microsoft's <a href="https://www.xbox.com/en-us/developers/rules">"Game Content Usage Rules"</a> using assets from Age of Empires II DE, and it is not endorsed by or affiliated with Microsoft.
+             </p>
           </v-col>
         </v-row>
       </v-container>
