@@ -2,6 +2,7 @@ let civs = [
   {
     name: "Britons",
     wasSelectedBefore: false,
+    gotoUnit: ['archers'],
     isIncluded: true,
     dlc: "The Age of Kings",
     lastPicked: null,
@@ -11,6 +12,7 @@ let civs = [
   {
     name: "Byzantines",
     wasSelectedBefore: false,
+    gotoUnit: ['archers', 'navy'],
     isIncluded: true,
     dlc: "The Age of Kings",
     lastPicked: null,
@@ -20,6 +22,7 @@ let civs = [
   {
     name: "Celts",
     wasSelectedBefore: false,
+    gotoUnit: ['infantry', 'siege'],
     isIncluded: true,
     dlc: "The Age of Kings",
     lastPicked: null,
@@ -29,6 +32,7 @@ let civs = [
   {
     name: "Chinese",
     wasSelectedBefore: false,
+    gotoUnit: ['archers'],
     isIncluded: true,
     dlc: "The Age of Kings",
     lastPicked: null,
@@ -38,6 +42,7 @@ let civs = [
   {
     name: "Franks",
     wasSelectedBefore: false,
+    gotoUnit: ['cavalry'],
     isIncluded: true,
     dlc: "The Age of Kings",
     lastPicked: null,
@@ -47,6 +52,7 @@ let civs = [
   {
     name: "Goths",
     wasSelectedBefore: false,
+    gotoUnit: ['infantry'],
     isIncluded: true,
     dlc: "The Age of Kings",
     lastPicked: null,
@@ -56,6 +62,7 @@ let civs = [
   {
     name: "Japanese",
     wasSelectedBefore: false,
+    gotoUnit: ['infantry', 'archers'],
     isIncluded: true,
     dlc: "The Age of Kings",
     lastPicked: null,
@@ -65,6 +72,7 @@ let civs = [
   {
     name: "Mongols",
     wasSelectedBefore: false,
+    gotoUnit: ['archers', 'siege'],
     isIncluded: true,
     dlc: "The Age of Kings",
     lastPicked: null,
@@ -74,6 +82,7 @@ let civs = [
   {
     name: "Persians",
     wasSelectedBefore: false,
+    gotoUnit: ['cavalry'],
     isIncluded: true,
     dlc: "The Age of Kings",
     lastPicked: null,
@@ -83,6 +92,7 @@ let civs = [
   {
     name: "Saracens",
     wasSelectedBefore: false,
+    gotoUnit: ['archers', 'navy'],
     isIncluded: true,
     dlc: "The Age of Kings",
     lastPicked: null,
@@ -92,6 +102,7 @@ let civs = [
   {
     name: "Teutons",
     wasSelectedBefore: false,
+    gotoUnit: ['infantry', 'cavalry', 'siege'],
     isIncluded: true,
     dlc: "The Age of Kings",
     lastPicked: null,
@@ -101,6 +112,7 @@ let civs = [
   {
     name: "Turks",
     wasSelectedBefore: false,
+    gotoUnit: ['cavalry', 'archers'],
     isIncluded: true,
     dlc: "The Age of Kings",
     lastPicked: null,
@@ -110,6 +122,7 @@ let civs = [
   {
     name: "Vikings",
     wasSelectedBefore: false,
+    gotoUnit: ['infantry', 'archers', 'navy'],
     isIncluded: true,
     dlc: "The Age of Kings",
     lastPicked: null,
@@ -119,6 +132,7 @@ let civs = [
   {
     name: "Aztecs",
     wasSelectedBefore: false,
+    gotoUnit: ['infantry', 'eagles', 'monks', 'archers'],
     isIncluded: true,
     dlc: "The Conquerors",
     lastPicked: null,
@@ -128,6 +142,7 @@ let civs = [
   {
     name: "Huns",
     wasSelectedBefore: false,
+    gotoUnit: ['cavalry'],
     isIncluded: true,
     dlc: "The Conquerors",
     lastPicked: null,
@@ -137,6 +152,7 @@ let civs = [
   {
     name: "Koreans",
     wasSelectedBefore: false,
+    gotoUnit: ['archers', 'siege', 'navy'],
     isIncluded: true,
     dlc: "The Conquerors",
     lastPicked: null,
@@ -146,6 +162,7 @@ let civs = [
   {
     name: "Mayans",
     wasSelectedBefore: false,
+    gotoUnit: ['eagles', 'archers'],
     isIncluded: true,
     dlc: "The Conquerors",
     lastPicked: null,
@@ -155,6 +172,7 @@ let civs = [
   {
     name: "Spanish",
     wasSelectedBefore: false,
+    gotoUnit: ['cavalry', 'monks', 'navy'],
     isIncluded: true,
     dlc: "The Conquerors",
     lastPicked: null,
@@ -164,6 +182,7 @@ let civs = [
   {
     name: "Incas",
     wasSelectedBefore: false,
+    gotoUnit: ['archers', 'eagles'],
     isIncluded: true,
     dlc: "The Forgotten",
     lastPicked: null,
@@ -173,6 +192,7 @@ let civs = [
   {
     name: "Indians",
     wasSelectedBefore: false,
+    gotoUnit: ['cavalry'],
     isIncluded: true,
     dlc: "The Forgotten",
     lastPicked: null,
@@ -182,6 +202,7 @@ let civs = [
   {
     name: "Italians",
     wasSelectedBefore: false,
+    gotoUnit: ['archers', 'navy'],
     isIncluded: true,
     dlc: "The Forgotten",
     lastPicked: null,
@@ -191,6 +212,7 @@ let civs = [
   {
     name: "Magyars",
     wasSelectedBefore: false,
+    gotoUnit: ['cavalry', 'archers'],
     isIncluded: true,
     dlc: "The Forgotten",
     lastPicked: null,
@@ -200,6 +222,7 @@ let civs = [
   {
     name: "Slavs",
     wasSelectedBefore: false,
+    gotoUnit: ['infantry', 'cavalry', 'siege'],
     isIncluded: true,
     dlc: "The Forgotten",
     lastPicked: null,
@@ -209,6 +232,7 @@ let civs = [
   {
     name: "Berbers",
     wasSelectedBefore: false,
+    gotoUnit: ['cavalry','navy'],
     isIncluded: true,
     dlc: "The African Kindoms",
     lastPicked: null,
@@ -218,6 +242,7 @@ let civs = [
   {
     name: "Ethiopians",
     wasSelectedBefore: false,
+    gotoUnit: ['archers','siege'],
     isIncluded: true,
     dlc: "The African Kindoms",
     lastPicked: null,
@@ -227,6 +252,7 @@ let civs = [
   {
     name: "Malians",
     wasSelectedBefore: false,
+    gotoUnit: ['cavalry', 'infantry'],
     isIncluded: true,
     dlc: "The African Kindoms",
     lastPicked: null,
@@ -236,6 +262,7 @@ let civs = [
   {
     name: "Portuguese",
     wasSelectedBefore: false,
+    gotoUnit: ['archers', 'navy'],
     isIncluded: true,
     dlc: "The African Kindoms",
     lastPicked: null,
@@ -245,6 +272,7 @@ let civs = [
   {
     name: "Burmese",
     wasSelectedBefore: false,
+    gotoUnit: ['monks'],
     isIncluded: true,
     dlc: "Rise of the Rajas",
     lastPicked: null,
@@ -254,6 +282,7 @@ let civs = [
   {
     name: "Khmer",
     wasSelectedBefore: false,
+    gotoUnit: ['cavalry', 'archers'],
     isIncluded: true,
     dlc: "Rise of the Rajas",
     lastPicked: null,
@@ -263,6 +292,7 @@ let civs = [
   {
     name: "Malay",
     wasSelectedBefore: false,
+    gotoUnit: ['archers'],
     isIncluded: true,
     dlc: "Rise of the Rajas",
     lastPicked: null,
@@ -272,6 +302,7 @@ let civs = [
   {
     name: "Vietnamese",
     wasSelectedBefore: false,
+    gotoUnit: ['archers'],
     isIncluded: true,
     dlc: "Rise of the Rajas",
     lastPicked: null,
@@ -281,6 +312,7 @@ let civs = [
   {
     name: "Bulgarians",
     wasSelectedBefore: false,
+    gotoUnit: ['cavalry', 'infantry'],
     isIncluded: true,
     dlc: "Definitive Edition",
     lastPicked: null,
@@ -290,6 +322,7 @@ let civs = [
   {
     name: "Cumans",
     wasSelectedBefore: false,
+    gotoUnit: ['cavalry'],
     isIncluded: true,
     dlc: "Definitive Edition",
     lastPicked: null,
@@ -299,6 +332,7 @@ let civs = [
   {
     name: "Lithuanians",
     wasSelectedBefore: false,
+    gotoUnit: ['cavalry', 'monks'],
     isIncluded: true,
     dlc: "Definitive Edition",
     lastPicked: null,
@@ -308,6 +342,7 @@ let civs = [
   {
     name: "Tatars",
     wasSelectedBefore: false,
+    gotoUnit: ['archers', 'cavalry'],
     isIncluded: true,
     dlc: "Definitive Edition",
     lastPicked: null,
@@ -317,6 +352,7 @@ let civs = [
   {
     name: "Burgundians",
     wasSelectedBefore: false,
+    gotoUnit: ['cavalry'],
     isIncluded: true,
     dlc: "Lords of the West",
     lastPicked: null,
@@ -326,6 +362,7 @@ let civs = [
   {
     name: "Sicilians",
     wasSelectedBefore: false,
+    gotoUnit: ['archers', 'infantry'],
     isIncluded: true,
     dlc: "Lords of the West",
     lastPicked: null,
@@ -338,4 +375,12 @@ civs.map(
   (c) => (c.wikiLink = "https://ageofempires.fandom.com/wiki/" + c.name)
 );
 
+let unitStrats = new Set();
+for (let c of civs) {
+    for (let u of c.gotoUnit) {
+	unitStrats.add(u);
+    }
+}
+
 export const civilizations = civs;
+export const unitStrategies = Array.from(unitStrats);

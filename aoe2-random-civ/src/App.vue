@@ -144,6 +144,10 @@
             ></Confirm>
           </v-col>
         </v-row>
+        <v-divider class="my-10"></v-divider>
+        <v-row>
+            <v-btn v-for="unit in unitStrategies" :key="unit" class="mr-5" color="primary" @click="includeUnitStrats(unit)">Include {{unit}} civs</v-btn>
+        </v-row>
 
         <v-divider class="my-10"></v-divider>
 
@@ -277,7 +281,7 @@
 </template>
 
 <script>
-import { civilizations } from "./civ";
+import { civilizations, unitStrategies } from "./civ";
 import Confirm from "./components/Confirm.vue";
 import _ from "lodash";
 import moment from "moment";
@@ -297,6 +301,7 @@ export default {
       userDialog: false,
       drawer: null,
       civilizations: civilizations,
+      unitStrategies: unitStrategies,
       selectedCiv: {
         name: "",
         wasSelectedBefore: false,
@@ -355,6 +360,14 @@ export default {
     },
     excludeAll() {
       this.civilizations.map(civ => (civ.isIncluded = false));
+    },
+    includeUnitStrats(unit) {
+	for (let c of this.civilizations) {
+            if(c.gotoUnit.includes(unit))
+            {
+                 c.isIncluded = true;
+            }
+        }
     },
     setupCivilizations(civilizations) {
       // Instead of simply loading the stored configuration, update
