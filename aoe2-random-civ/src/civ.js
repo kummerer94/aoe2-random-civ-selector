@@ -314,6 +314,24 @@ let civs = [
     icon:
       "https://vignette.wikia.nocookie.net/ageofempires/images/f/f2/CivIcon-Tatars.png",
   },
+  {
+    name: "Burgundians",
+    wasSelectedBefore: false,
+    isIncluded: true,
+    dlc: "Lords of the West",
+    lastPicked: null,
+    icon:
+      "https://static.wikia.nocookie.net/ageofempires/images/5/5e/Menu_techtree_burgundians.png",
+  },
+  {
+    name: "Sicilians",
+    wasSelectedBefore: false,
+    isIncluded: true,
+    dlc: "Lords of the West",
+    lastPicked: null,
+    icon:
+      "https://static.wikia.nocookie.net/ageofempires/images/7/7f/Menu_techtree_sicilians.png",
+  },
 ];
 
 civs.map(
