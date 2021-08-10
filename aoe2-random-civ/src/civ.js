@@ -369,6 +369,26 @@ let civs = [
     icon:
       "https://static.wikia.nocookie.net/ageofempires/images/7/7f/Menu_techtree_sicilians.png",
   },
+  {
+    name: "Poles",
+    wasSelectedBefore: false,
+    gotoUnit: ['cavalry'],
+    isIncluded: true,
+    dlc: "Dawn of the Dukes",
+    lastPicked: null,
+    icon:
+      "https://static.wikia.nocookie.net/ageofempires/images/9/98/Poles_Icon.png",
+  },
+  {
+    name: "Bohemians",
+    wasSelectedBefore: false,
+    gotoUnit: ['monks', 'siege', 'archers'],
+    isIncluded: true,
+    dlc: "Dawn of the Dukes",
+    lastPicked: null,
+    icon:
+      "https://static.wikia.nocookie.net/ageofempires/images/a/a1/Bohemians_Icon.png",
+  }
 ];
 
 civs.map(
