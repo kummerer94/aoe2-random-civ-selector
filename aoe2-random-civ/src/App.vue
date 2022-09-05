@@ -54,7 +54,7 @@
       </v-card>
     </v-dialog>
 
-    <v-content>
+    <v-main>
       <v-container fluid>
         <v-row>
           <v-col>
@@ -80,7 +80,7 @@
                   <div class="overline mb-4">{{ selectedCiv.dlc }}</div>
                   <v-list-item-title class="headline mb-1">
                     {{
-                    selectedCiv.name
+                    selectedCiv.altName === undefined ? selectedCiv.name : selectedCiv.name + " (" + selectedCiv.altName + ")"
                     }}
                   </v-list-item-title>
                   <v-list-item-subtitle></v-list-item-subtitle>
@@ -162,7 +162,7 @@
                         :style="
                           civ.isIncluded ? '' : 'text-decoration: line-through'
                         "
-                      >{{ civ.name }}{{ civ.wasSelectedBefore && civ.lastPicked !== null ? ' (last picked '+ makeDateHumanReadable(civ.lastPicked) +')' : ''}}</span>
+                      >{{ civ.altName === undefined ? civ.name : civ.name + " ("+ civ.altName + ")" }}{{ civ.wasSelectedBefore && civ.lastPicked !== null ? ' (last picked '+ makeDateHumanReadable(civ.lastPicked) +')' : ''}}</span>
                     </template>
                     <template v-slot:append>
                       <v-img
@@ -268,7 +268,7 @@
           </v-col>
         </v-row>
       </v-container>
-    </v-content>
+    </v-main>
 
     <v-footer app>
       <span class="mr-3">&copy; 2020</span>
@@ -362,12 +362,11 @@ export default {
       this.civilizations.map(civ => (civ.isIncluded = false));
     },
     includeUnitStrats(unit) {
-	for (let c of this.civilizations) {
-            if(c.gotoUnit.includes(unit))
-            {
-                 c.isIncluded = true;
-            }
+      for (let c of this.civilizations) {
+        if(c.gotoUnit.includes(unit)) {
+          c.isIncluded = true;
         }
+      }
     },
     setupCivilizations(civilizations) {
       // Instead of simply loading the stored configuration, update
