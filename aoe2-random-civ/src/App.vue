@@ -130,18 +130,18 @@
           </v-col>
           <v-spacer></v-spacer>
           <v-col align="right">
-            <Confirm
+            <ConfirmSelection
               label="Reset already selected"
               message="Do you want to reset the already selected civs?"
               color="error"
               @confirm="resetSelection()"
-            ></Confirm>
-            <Confirm
+            ></ConfirmSelection>
+            <ConfirmSelection
               label="Reset excluded"
               message="Do you want to reset the excluded civs?"
               color="error"
               @confirm="resetExcluded()"
-            ></Confirm>
+            ></ConfirmSelection>
           </v-col>
         </v-row>
         <v-divider class="my-10"></v-divider>
@@ -282,7 +282,7 @@
 
 <script>
 import { civilizations, unitStrategies } from "./civ";
-import Confirm from "./components/Confirm.vue";
+import ConfirmSelection from "./components/ConfirmSelection.vue";
 import _ from "lodash";
 import moment from "moment";
 import { LocalStorageEngine, APIStorageEngine } from "./storageEngine";
@@ -291,7 +291,7 @@ let localStorageEngine = new LocalStorageEngine();
 let apiStorageEngine = new APIStorageEngine();
 
 export default {
-  components: { Confirm },
+  components: { ConfirmSelection },
   props: {
     source: String
   },
@@ -320,7 +320,9 @@ export default {
         this.save(newCiv);
       }, 1000)
     },
-    user: u => localStorage.setItem("user", u)
+    user: function (u) {
+      localStorage.setItem("user", u)
+    }
   },
   methods: {
     generateRandomCiv() {

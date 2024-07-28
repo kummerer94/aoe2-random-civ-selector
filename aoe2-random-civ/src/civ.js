@@ -6,7 +6,7 @@ let civs = [
     isIncluded: true,
     dlc: "The Age of Kings",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/a/ae/CivIcon-Britons.png",
+    icon: "icons/Britons.png",
   },
   {
     name: "Byzantines",
@@ -15,7 +15,7 @@ let civs = [
     isIncluded: true,
     dlc: "The Age of Kings",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/2/27/CivIcon-Byzantines.png",
+    icon: "icons/Byzantines.png",
   },
   {
     name: "Celts",
@@ -24,7 +24,7 @@ let civs = [
     isIncluded: true,
     dlc: "The Age of Kings",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/5/59/CivIcon-Celts.png",
+    icon: "icons/Celts.png",
   },
   {
     name: "Chinese",
@@ -33,7 +33,7 @@ let civs = [
     isIncluded: true,
     dlc: "The Age of Kings",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/c/cc/CivIcon-Chinese.png",
+    icon: "icons/Chinese.png",
   },
   {
     name: "Franks",
@@ -42,7 +42,7 @@ let civs = [
     isIncluded: true,
     dlc: "The Age of Kings",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/1/1b/CivIcon-Franks.png",
+    icon: "icons/Franks.png",
   },
   {
     name: "Goths",
@@ -51,7 +51,7 @@ let civs = [
     isIncluded: true,
     dlc: "The Age of Kings",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/2/24/CivIcon-Goths.png",
+    icon: "icons/Goths.png",
   },
   {
     name: "Japanese",
@@ -60,7 +60,7 @@ let civs = [
     isIncluded: true,
     dlc: "The Age of Kings",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/9/9a/CivIcon-Japanese.png",
+    icon: "icons/Japanese.png",
   },
   {
     name: "Mongols",
@@ -69,7 +69,7 @@ let civs = [
     isIncluded: true,
     dlc: "The Age of Kings",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/1/10/CivIcon-Mongols.png",
+    icon: "icons/Mongols.png",
   },
   {
     name: "Persians",
@@ -78,7 +78,7 @@ let civs = [
     isIncluded: true,
     dlc: "The Age of Kings",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/a/ad/CivIcon-Persians.png",
+    icon: "icons/Persians.png",
   },
   {
     name: "Saracens",
@@ -87,7 +87,7 @@ let civs = [
     isIncluded: true,
     dlc: "The Age of Kings",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/5/59/CivIcon-Saracens.png",
+    icon: "icons/Saracens.png",
   },
   {
     name: "Teutons",
@@ -96,7 +96,7 @@ let civs = [
     isIncluded: true,
     dlc: "The Age of Kings",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/3/3f/CivIcon-Teutons.png",
+    icon: "icons/Teutons.png",
   },
   {
     name: "Turks",
@@ -105,7 +105,7 @@ let civs = [
     isIncluded: true,
     dlc: "The Age of Kings",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/1/1c/CivIcon-Turks.png",
+    icon: "icons/Turks.png",
   },
   {
     name: "Vikings",
@@ -114,7 +114,7 @@ let civs = [
     isIncluded: true,
     dlc: "The Age of Kings",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/c/c9/CivIcon-Vikings.png",
+    icon: "icons/Vikings.png",
   },
   {
     name: "Aztecs",
@@ -123,7 +123,7 @@ let civs = [
     isIncluded: true,
     dlc: "The Conquerors",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/0/0c/CivIcon-Aztecs.png",
+    icon: "icons/Aztecs.png",
   },
   {
     name: "Huns",
@@ -132,7 +132,7 @@ let civs = [
     isIncluded: true,
     dlc: "The Conquerors",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/1/17/CivIcon-Huns.png",
+    icon: "icons/Huns.png",
   },
   {
     name: "Koreans",
@@ -141,7 +141,7 @@ let civs = [
     isIncluded: true,
     dlc: "The Conquerors",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/7/73/CivIcon-Koreans.png",
+    icon: "icons/Koreans.png",
   },
   {
     name: "Mayans",
@@ -150,7 +150,7 @@ let civs = [
     isIncluded: true,
     dlc: "The Conquerors",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/0/05/CivIcon-Mayans.png",
+    icon: "icons/Mayans.png",
   },
   {
     name: "Spanish",
@@ -159,7 +159,7 @@ let civs = [
     isIncluded: true,
     dlc: "The Conquerors",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/0/0a/CivIcon-Spanish.png",
+    icon: "icons/Spanish.png",
   },
   {
     name: "Incas",
@@ -168,7 +168,7 @@ let civs = [
     isIncluded: true,
     dlc: "The Forgotten",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/5/5e/CivIcon-Incas.png",
+    icon: "icons/Incas.png",
   },
   {
     name: "Indians",
@@ -187,7 +187,7 @@ let civs = [
     isIncluded: true,
     dlc: "The Forgotten",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/e/e1/CivIcon-Italians.png",
+    icon: "icons/Italians.png",
   },
   {
     name: "Magyars",
@@ -196,7 +196,7 @@ let civs = [
     isIncluded: true,
     dlc: "The Forgotten",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/6/68/CivIcon-Magyars.png",
+    icon: "icons/Magyars.png",
   },
   {
     name: "Slavs",
@@ -205,7 +205,7 @@ let civs = [
     isIncluded: true,
     dlc: "The Forgotten",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/1/12/CivIcon-Slavs.png",
+    icon: "icons/Slavs.png",
   },
   {
     name: "Berbers",
@@ -214,7 +214,7 @@ let civs = [
     isIncluded: true,
     dlc: "The African Kindoms",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/7/71/CivIcon-Berbers.png",
+    icon: "icons/Berbers.png",
   },
   {
     name: "Ethiopians",
@@ -232,7 +232,7 @@ let civs = [
     isIncluded: true,
     dlc: "The African Kindoms",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/8/80/CivIcon-Malians.png",
+    icon: "icons/Malians.png",
   },
   {
     name: "Portuguese",
@@ -241,7 +241,7 @@ let civs = [
     isIncluded: true,
     dlc: "The African Kindoms",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/6/60/CivIcon-Portuguese.png",
+    icon: "icons/Portugese.png",
   },
   {
     name: "Burmese",
@@ -250,7 +250,7 @@ let civs = [
     isIncluded: true,
     dlc: "Rise of the Rajas",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/7/79/CivIcon-Burmese.png",
+    icon: "icons/Burmese.png",
   },
   {
     name: "Khmer",
@@ -259,7 +259,7 @@ let civs = [
     isIncluded: true,
     dlc: "Rise of the Rajas",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/e/ec/CivIcon-Khmer.png",
+    icon: "icons/Khmer.png",
   },
   {
     name: "Malay",
@@ -268,7 +268,7 @@ let civs = [
     isIncluded: true,
     dlc: "Rise of the Rajas",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/c/c3/CivIcon-Malay.png",
+    icon: "icons/Malay.png",
   },
   {
     name: "Vietnamese",
@@ -277,7 +277,7 @@ let civs = [
     isIncluded: true,
     dlc: "Rise of the Rajas",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/0/07/CivIcon-Vietnamese.png",
+    icon: "icons/Vietnamese.png",
   },
   {
     name: "Bulgarians",
@@ -286,7 +286,7 @@ let civs = [
     isIncluded: true,
     dlc: "Definitive Edition",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/c/ce/CivIcon-Bulgarians.png",
+    icon: "icons/Bulgarians.png",
   },
   {
     name: "Cumans",
@@ -295,7 +295,7 @@ let civs = [
     isIncluded: true,
     dlc: "Definitive Edition",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/c/cc/CivIcon-Cumans.png",
+    icon: "icons/Cumans.png",
   },
   {
     name: "Lithuanians",
@@ -304,7 +304,7 @@ let civs = [
     isIncluded: true,
     dlc: "Definitive Edition",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/0/0d/CivIcon-Lithuanians.png",
+    icon: "icons/Lithuanians.png",
   },
   {
     name: "Tatars",
@@ -313,7 +313,7 @@ let civs = [
     isIncluded: true,
     dlc: "Definitive Edition",
     lastPicked: null,
-    icon: "https://vignette.wikia.nocookie.net/ageofempires/images/f/f2/CivIcon-Tatars.png",
+    icon: "icons/Tatars.png",
   },
   {
     name: "Burgundians",
@@ -322,7 +322,7 @@ let civs = [
     isIncluded: true,
     dlc: "Lords of the West",
     lastPicked: null,
-    icon: "https://static.wikia.nocookie.net/ageofempires/images/5/5e/Menu_techtree_burgundians.png",
+    icon: "icons/Burgundians.png",
   },
   {
     name: "Sicilians",
@@ -331,7 +331,7 @@ let civs = [
     isIncluded: true,
     dlc: "Lords of the West",
     lastPicked: null,
-    icon: "https://static.wikia.nocookie.net/ageofempires/images/7/7f/Menu_techtree_sicilians.png",
+    icon: "icons/Sicilians.png",
   },
   {
     name: "Poles",
@@ -340,7 +340,7 @@ let civs = [
     isIncluded: true,
     dlc: "Dawn of the Dukes",
     lastPicked: null,
-    icon: "https://static.wikia.nocookie.net/ageofempires/images/9/98/Poles_Icon.png",
+    icon: "icons/Poles.png",
   },
   {
     name: "Bohemians",
@@ -349,7 +349,7 @@ let civs = [
     isIncluded: true,
     dlc: "Dawn of the Dukes",
     lastPicked: null,
-    icon: "https://static.wikia.nocookie.net/ageofempires/images/a/a1/Bohemians_Icon.png",
+    icon: "icons/Bohemians.png",
   },
   {
     name: "Bengalis",
