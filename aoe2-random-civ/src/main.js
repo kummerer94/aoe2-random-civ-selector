@@ -1,14 +1,38 @@
-import Vue from "vue";
-import App from "./App.vue";
-import vuetify from "./plugins/vuetify";
 import "roboto-fontface/css/roboto/roboto-fontface.css";
 import "@mdi/font/css/materialdesignicons.css";
-import VuetifyToast from "vuetify-toast-snackbar";
 
-Vue.use(VuetifyToast);
-Vue.config.productionTip = false;
+import ToastPlugin from "vue-toast-notification";
+import { aliases, mdi } from "vuetify/iconsets/mdi";
+import { createApp } from "vue";
+import App from "./App.vue";
+import ConfirmSelection from "./components/ConfirmSelection.vue";
 
-new Vue({
-  vuetify,
-  render: (h) => h(App),
-}).$mount("#app");
+import "vuetify/styles";
+import { createVuetify } from "vuetify";
+import * as components from "vuetify/components";
+import * as directives from "vuetify/directives";
+
+const app = createApp(App);
+
+const vuetify = createVuetify({
+  components,
+  directives,
+
+  icons: {
+    defaultSet: "mdi",
+    aliases,
+    sets: {
+      mdi,
+    },
+  },
+
+  theme: {
+    defaultTheme: "dark",
+  },
+});
+
+app.use(vuetify);
+app.use(ToastPlugin);
+app.component("ConfirmSelection", ConfirmSelection);
+
+app.mount("#app");

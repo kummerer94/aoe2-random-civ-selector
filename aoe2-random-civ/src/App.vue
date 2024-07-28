@@ -333,7 +333,7 @@ export default {
       if (possibleCivilizations.length == 0) {
         this.$toast.error(
           "No more civilizations available. Either reset or include additional ones.",
-          { dismissible: true, timeout: 15000 }
+          { dismissible: true, duration: 15000 }
         );
       } else {
         this.selectedCiv =
@@ -376,10 +376,13 @@ export default {
       // the attributes of the default configuration with the values
       // for these attributes in the stored configuration.
       civilizations.map(storedCiv => {
-        Object.assign(
-          this.civilizations.find(civ => civ.name === storedCiv.name),
-          storedCiv
-        );
+        const standardCiv = this.civilizations.find(civ => civ.name === storedCiv.name);
+        // do not use stored info for icon, gotoUnit, and dlc
+        storedCiv.icon = standardCiv.icon;
+        storedCiv.gotoUnit = standardCiv.gotoUnit;
+        storedCiv.dlc = standardCiv.dlc;
+        // update the civ in the app with the info from storage
+        Object.assign( standardCiv, storedCiv);
       });
     },
     load() {
@@ -418,9 +421,6 @@ export default {
       }
       return "";
     }
-  },
-  created() {
-    this.$vuetify.theme.dark = true;
   },
   computed: {
     splitCivilizations() {
