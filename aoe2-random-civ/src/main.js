@@ -1,4 +1,5 @@
 import "roboto-fontface/css/roboto/roboto-fontface.css";
+import "vue-toast-notification/dist/theme-sugar.css";
 import "@mdi/font/css/materialdesignicons.css";
 
 import ToastPlugin from "vue-toast-notification";

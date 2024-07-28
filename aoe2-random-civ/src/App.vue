@@ -4,6 +4,9 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>AoE II - Definitive Edition - Random Civilization Selector</v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-progress-circular color="primary" indeterminate v-if="isLoading"></v-progress-circular>
+      <v-icon icon="mdi-check" color="success" v-if="isLoadingSuccess"></v-icon>
+      <v-icon icon="mdi-alert-outline" color="error" v-if="isLoadingError"></v-icon>
       <v-btn @click="userDialog = true">{{ this.user !== "" ? this.user : "Store in browser" }}</v-btn>
     </v-app-bar>
 
@@ -76,17 +79,15 @@
           <v-col align>
             <v-card class="mx-auto" max-width="344" outlined>
               <v-list-item three-line>
-                <v-list-item-content>
-                  <div class="overline mb-4">{{ selectedCiv.dlc }}</div>
-                  <v-list-item-title class="headline mb-1">
-                    {{
-                    selectedCiv.altName === undefined ? selectedCiv.name : selectedCiv.name + " (" + selectedCiv.altName + ")"
-                    }}
-                  </v-list-item-title>
-                  <v-list-item-subtitle></v-list-item-subtitle>
-                </v-list-item-content>
+                <div class="overline mb-4">{{ selectedCiv.dlc }}</div>
+                <v-list-item-title class="headline mb-1">
+                  {{
+                  selectedCiv.altName === undefined ? selectedCiv.name : selectedCiv.name + " (" + selectedCiv.altName + ")"
+                  }}
+                </v-list-item-title>
+                <v-list-item-subtitle></v-list-item-subtitle>
 
-                <v-list-item-avatar tile size="80">
+                <v-avatar tile size="80">
                   <a :href="selectedCiv.wikiLink" target="__new">
                     <v-img
                       :src="selectedCiv.icon"
@@ -97,7 +98,7 @@
                       width="80"
                     ></v-img>
                   </a>
-                </v-list-item-avatar>
+                </v-avatar>
               </v-list-item>
 
               <v-card-actions>
@@ -298,6 +299,9 @@ export default {
   },
   data: () => {
     return {
+      isLoading: false,
+      isLoadingSuccess: false,
+      isLoadingError: false,
       user: localStorage.getItem("user") || "",
       userDialog: false,
       drawer: null,
@@ -308,7 +312,7 @@ export default {
         wasSelectedBefore: false,
         isIncluded: true,
         dlc: ""
-      }
+      },
     };
   },
   mounted() {
@@ -371,6 +375,22 @@ export default {
         }
       }
     },
+    setLoadingError() {
+      this.isLoadingError = true;
+      setTimeout(() => this.isLoadingError = false, 2000);
+    },
+    setLoadingSuccess() {
+      this.isLoadingSuccess = true;
+      setTimeout(() => this.isLoadingSuccess = false, 2000)
+    },
+    startLoading() {
+      this.isLoadingError = false;
+      this.isLoadingSuccess = false;
+      this.isLoading = true;
+    },
+    endLoading() {
+      this.isLoading = true;
+    },
     setupCivilizations(civilizations) {
       // Instead of simply loading the stored configuration, update
       // the attributes of the default configuration with the values
@@ -386,6 +406,7 @@ export default {
       });
     },
     load() {
+      this.startLoading()
       if (this.user === "") {
         localStorageEngine.load().then(storedCivilizations => {
           this.setupCivilizations(storedCivilizations);
@@ -397,22 +418,45 @@ export default {
           .then(storedCivilizations => {
             this.setupCivilizations(storedCivilizations);
             this.$toast.info("Loaded your configuration.");
+            this.setLoadingSuccess();
+
           })
-          .catch(error => this.$toast.warning(error));
+          .catch(error => {
+            this.$toast.error(error);
+            this.setLoadingError();
+          })
+          .finally(() => this.isLoading = false);
       }
     },
     save(civ) {
       if (civ === undefined || civ === null) {
         return;
       }
+      this.startLoading();
       if (this.user !== "") {
         apiStorageEngine
           .save(civ, this.user)
-          .then(() => this.$toast.info("Saved your configuration."));
+          .then(() => {
+            this.$toast.info("Saved your configuration.");
+            this.setLoadingSuccess();
+          })
+          .catch(error => {
+            this.$toast.error(error);
+            this.setLoadingError();
+          })
+          .finally(() => this.isLoading = false);
       } else {
         localStorageEngine
           .save(civ)
-          .then(() => this.$toast.info("Saved your configuration."));
+          .then(() => {
+            this.$toast.info("Saved your configuration.")
+            this.setLoadingSuccess();
+          })
+          .catch(error => {
+            this.$toast.error(error);
+            this.setLoadingError();
+          })
+          .finally(() => this.isLoading = false);
       }
     },
     makeDateHumanReadable(date) {
