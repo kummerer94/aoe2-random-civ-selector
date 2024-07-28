@@ -125,8 +125,8 @@
 
         <v-row>
           <v-col align="left">
-            <v-btn class="mr-5" color="primary" @click="excludeAll()">Exclude all</v-btn>
-            <v-btn class="mr-5" color="primary" @click="includeAll()">Include all</v-btn>
+            <v-btn class="mr-5 mb-5" color="primary" @click="excludeAll()">Exclude all</v-btn>
+            <v-btn class="mr-5 mb-5" color="primary" @click="includeAll()">Include all</v-btn>
           </v-col>
           <v-spacer></v-spacer>
           <v-col align="right">
@@ -146,8 +146,10 @@
         </v-row>
         <v-divider class="my-10"></v-divider>
         <v-row>
-            <v-btn v-for="unit in unitStrategies" :key="unit" class="mr-5" color="primary" @click="includeUnitStrats(unit)">Include {{unit}} civs</v-btn>
-        </v-row>
+            <v-col>
+              <v-btn v-for="unit in unitStrategies" :key="unit" class="mr-5 mb-5" color="primary" @click="includeUnitStrats(unit)">Include {{unit}} civs</v-btn>
+            </v-col>
+          </v-row>
 
         <v-divider class="my-10"></v-divider>
 
@@ -166,15 +168,14 @@
                     </template>
                     <template v-slot:append>
                       <v-img
-                        :src="civ.icon"
-                        :style="
+                      :src="civ.icon"
+                      :style="
                           civ.isIncluded ? '' : 'filter: grayscale(100%);'
                         "
                         width="35"
                         height="35"
-                      ></v-img>
-
-                      <v-btn
+                        ></v-img>
+                        <v-btn
                         icon
                         v-if="!civ.wasSelectedBefore"
                         :disabled="!civ.isIncluded"
@@ -182,7 +183,7 @@
                         title="Remove from rotation: mark as played"
                         @click="selectCiv(civ)"
                         dense
-                      >
+                        >
                         <v-icon style="text-decoration: none !important">mdi-play</v-icon>
                       </v-btn>
                       <v-btn
@@ -194,7 +195,7 @@
                         title="Take back into rotation"
                         @click="resetCiv(civ)"
                         dense
-                      >
+                        >
                         <v-icon style="text-decoration: none !important">mdi-play-protected-content</v-icon>
                       </v-btn>
                       <v-chip :color="civ.name == selectedCiv.name ? 'primary' : ''">{{ civ.dlc }}</v-chip>

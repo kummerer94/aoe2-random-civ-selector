@@ -1,6 +1,6 @@
 <template>
   <span>
-    <v-btn :color="color" class="mr-5" dark @click.stop="dialog = true">
+    <v-btn :color="color" class="mr-5 mb-5" dark @click.stop="dialog = true">
       {{ label }}
     </v-btn>
 
