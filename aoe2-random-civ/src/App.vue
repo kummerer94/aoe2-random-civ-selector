@@ -7,55 +7,7 @@
       <v-progress-circular color="primary" indeterminate v-if="isLoading"></v-progress-circular>
       <v-icon icon="mdi-check" color="success" v-if="isLoadingSuccess"></v-icon>
       <v-icon icon="mdi-alert-outline" color="error" v-if="isLoadingError"></v-icon>
-      <v-btn @click="userDialog = true">{{ this.user !== "" ? this.user : "Store in browser" }}</v-btn>
     </v-app-bar>
-
-    <v-dialog v-model="userDialog">
-      <v-card>
-        <v-card-title class="headline">What is your username?</v-card-title>
-
-        <v-card-text>
-          <p>
-            If you specify a username here, we will save your configuration in
-            our database. You can come back to this site and use your username
-            to retrieve this configuration again.
-          </p>
-          <p>
-            If you choose to not specify a username, we will save your
-            configuration in your browser. However, this may get lost when the
-            cache is deleted or when you are switching your browser.
-          </p>
-          <v-form
-            @submit.prevent="
-              userDialog = false;
-              load();
-            "
-          >
-            <v-text-field label="Username" v-model="user"></v-text-field>
-          </v-form>
-        </v-card-text>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="red darken-1"
-            text
-            @click="
-              userDialog = false;
-              user = '';
-            "
-          >Store in browser</v-btn>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="
-              userDialog = false;
-              load();
-            "
-          >Save</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
 
     <v-main>
       <v-container fluid>
@@ -239,28 +191,18 @@
               excluded civilizations.
             </p>
 
-            <h2>Privacy</h2>The next paragraph describes the way that I handle and save your
-            data. In short:
-            <ul>
-              <li>
-                If you do not want me to, I will not save any of your data on my
-                servers.
-              </li>
-              <li>
-                If you do opt to save your data on my servers by choosing a
-                username, I will save your configuration, the current date, and
-                your chosen username. This allows me to later retrieve this data
-                if you want to use this tool on another PC by filtering for the username.
-              </li>
-            </ul>
+            <h2>Privacy</h2>
+            <p>
+              I do not save any of your data on my servers. Your configuration
+              is saved only in your browser.
+            </p>
 
             <h2>Datenschutzerklärung</h2>
             <p>
               Als Betreiber dieser Seiten nehmen wir den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung.
               Im Folgenden informieren wir über die Erhebung personenbezogener Daten bei Nutzung unserer Webseite. Personenbezogene Daten sind alle Daten, die auf Sie persönlich beziehbar sind, z. B. Bestandsdaten (Name, Adresse, etc.), Kontaktdaten (E-Mail-Adressen, Telefon- und Faxnummer etc. ), Inhaltsdaten (Bilder, Videos, Text etc.), Nutzungsdaten (Besuchte Webseite, Zugriffszeiten, etc.) und Kommunikationsdaten (IP-Adresse, Geräte- und Browserinformationen, etc.).
               Verantwortlicher gem. Art. 4 Abs. 7 EU-Datenschutz-Grundverordnung (DSGVO) ist Alexander Kammerer.
-              Wir speichern, sofern Sie dies explizit durch die Angabe eines Nutzernamens ("Username") bestätigen, auf unseren Servern diesen Nutzernamen, sowie die aktuell konfigurierten und angezeiten Daten zu der Selektion von Völkern bei Age of Empires. Weiterhin hinterlegen wir den Zeitpunkt, zu dem Sie diese Daten an uns geschickt haben.
-              Sie können uns jederzeit veranlassen diese Daten zu löschen, indem Sie sich an die im Impressum angegebenen Kontaktdaten wenden.
+              Wir speichern keine Ihrer Daten auf unseren Servern. Ihre Konfiguration wird ausschließlich lokal in Ihrem Browser gespeichert.
             </p>
 
             <h2>Copyright</h2>
@@ -287,10 +229,9 @@ import { civilizations, unitStrategies } from "./civ";
 import ConfirmSelection from "./components/ConfirmSelection.vue";
 import _ from "lodash";
 import moment from "moment";
-import { LocalStorageEngine, APIStorageEngine } from "./storageEngine";
+import { LocalStorageEngine } from "./storageEngine";
 
 let localStorageEngine = new LocalStorageEngine();
-let apiStorageEngine = new APIStorageEngine();
 
 export default {
   components: { ConfirmSelection },
@@ -302,8 +243,6 @@ export default {
       isLoading: false,
       isLoadingSuccess: false,
       isLoadingError: false,
-      user: localStorage.getItem("user") || "",
-      userDialog: false,
       drawer: null,
       civilizations: civilizations,
       unitStrategies: unitStrategies,
@@ -324,9 +263,6 @@ export default {
       handler: _.debounce(function(newCiv) {
         this.save(newCiv);
       }, 1000)
-    },
-    user: function (u) {
-      localStorage.setItem("user", u)
     }
   },
   methods: {
@@ -406,58 +342,34 @@ export default {
       });
     },
     load() {
-      this.startLoading()
-      if (this.user === "") {
-        localStorageEngine.load().then(storedCivilizations => {
+      this.startLoading();
+      localStorageEngine
+        .load()
+        .then(storedCivilizations => {
           this.setupCivilizations(storedCivilizations);
           this.$toast.info("Loaded your configuration.");
-        });
-      } else {
-        apiStorageEngine
-          .load(this.user)
-          .then(storedCivilizations => {
-            this.setupCivilizations(storedCivilizations);
-            this.$toast.info("Loaded your configuration.");
-            this.setLoadingSuccess();
-
-          })
-          .catch(error => {
-            this.$toast.error(error);
-            this.setLoadingError();
-          })
-          .finally(() => this.isLoading = false);
-      }
+        })
+        .catch(() => {
+          // No stored configuration yet: keep the default configuration.
+        })
+        .finally(() => this.isLoading = false);
     },
     save(civ) {
       if (civ === undefined || civ === null) {
         return;
       }
       this.startLoading();
-      if (this.user !== "") {
-        apiStorageEngine
-          .save(civ, this.user)
-          .then(() => {
-            this.$toast.info("Saved your configuration.");
-            this.setLoadingSuccess();
-          })
-          .catch(error => {
-            this.$toast.error(error);
-            this.setLoadingError();
-          })
-          .finally(() => this.isLoading = false);
-      } else {
-        localStorageEngine
-          .save(civ)
-          .then(() => {
-            this.$toast.info("Saved your configuration.")
-            this.setLoadingSuccess();
-          })
-          .catch(error => {
-            this.$toast.error(error);
-            this.setLoadingError();
-          })
-          .finally(() => this.isLoading = false);
-      }
+      localStorageEngine
+        .save(civ)
+        .then(() => {
+          this.$toast.info("Saved your configuration.");
+          this.setLoadingSuccess();
+        })
+        .catch(error => {
+          this.$toast.error(error);
+          this.setLoadingError();
+        })
+        .finally(() => this.isLoading = false);
     },
     makeDateHumanReadable(date) {
       if (date !== null) {
